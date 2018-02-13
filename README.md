@@ -28,35 +28,35 @@ import BufferedArrayPromiseProxy from 'ember-buffered-array-promise-proxy/proxy'
 const content = [ 'A' ];
 const promiseArray = BufferedArrayPromiseProxy.create({ content: RSVP.resolve(content) });
 
-promiseArray.then(buffer => {
-  buffer.get('firstObject'); // => 'A'
-  buffer.addObject('B');
+promiseArray.then(bufferedArray => {
+  bufferedArray.get('firstObject'); // => 'A'
+  bufferedArray.addObject('B');
 
-  buffer.objectAt(1); // => 'B'
-  buffer.toArray(); // => ['A', 'B']
+  bufferedArray.objectAt(1); // => 'B'
+  bufferedArray.toArray(); // => ['A', 'B']
 
-  buffer.get('hasChanges'); // => true
-  buffer.get('changes'); // => (get an object describing the changes) -- { added: ['B'], removed: [] }
+  bufferedArray.get('hasChanges'); // => true
+  bufferedArray.get('changes'); // => (get an object describing the changes) -- { added: ['B'], removed: [] }
 
-  buffer.applyBufferedChanges();
+  bufferedArray.applyBufferedChanges();
 
-  buffer.toArray(); // => ['A', 'B']
-  content.toArray(); // => ['A', 'B']
-  buffer.get('hasChanges'); // => false
+  bufferedArray.toArray(); // => ['A', 'B']
+  bufferedArray.get('content').toArray(); // => ['A', 'B']
+  bufferedArray.get('hasChanges'); // => false
 
-  buffer.removeObject('A');
-  buffer.get('changes'); // => { added: [], removed: ['A'] }
-  buffer.hasChanged(); // => true
+  bufferedArray.removeObject('A');
+  bufferedArray.get('changes'); // => { added: [], removed: ['A'] }
+  bufferedArray.hasChanged(); // => true
 
-  buffer.discardBufferedChanges();
+  bufferedArray.discardBufferedChanges();
 
-  buffer.toArray(); // => ['A', 'B']
-  content.toArray(); // => ['A', 'B']
-  buffer.hasChanged(); // => false
+  bufferedArray.toArray(); // => ['A', 'B']
+  bufferedArray.get('content').toArray(); // => ['A', 'B']
+  bufferedArray.hasChanged(); // => false
 });
 ```
 
-You can also use a few of these methods without using `then`:
+You can also use a few of these methods directly returning promises:
 
 ```js
 promiseArray.discardChanges();
