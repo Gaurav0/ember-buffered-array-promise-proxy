@@ -13,17 +13,36 @@ module.exports = function() {
       scenarios: [
         {
           name: 'ember-lts-2.8',
+          bower: {
+            dependencies: {
+              'ember': 'components/ember#lts-2-8'
+            },
+            resolutions: {
+              'ember': 'lts-2-8'
+            }
+          },
           npm: {
             devDependencies: {
-              'ember-source': '~2.8.0'
+              'ember-source': null
+            },
+            dependencies: {
+              'ember-data': '~2.8.0'
             }
           }
         },
         {
           name: 'ember-lts-2.12',
+          bower: {
+            dependencies: {
+              'ember': null
+            }
+          },
           npm: {
             devDependencies: {
               'ember-source': '~2.12.0'
+            },
+            dependencies: {
+              'ember-data': '~2.12.0'
             }
           }
         },
@@ -32,6 +51,9 @@ module.exports = function() {
           npm: {
             devDependencies: {
               'ember-source': '~2.16.0'
+            },
+            dependencies: {
+              'ember-data': '~2.16.0'
             }
           }
         },
@@ -40,6 +62,9 @@ module.exports = function() {
           npm: {
             devDependencies: {
               'ember-source': urls[0]
+            },
+            dependencies: {
+              'ember-data': 'github:emberjs/data#release'
             }
           }
         },
@@ -48,6 +73,9 @@ module.exports = function() {
           npm: {
             devDependencies: {
               'ember-source': urls[1]
+            },
+            dependencies: {
+              'ember-data': 'github:emberjs/data#beta'
             }
           }
         },
@@ -56,13 +84,17 @@ module.exports = function() {
           npm: {
             devDependencies: {
               'ember-source': urls[2]
+            },
+            dependencies: {
+              'ember-data': 'github:emberjs/data#master'
             }
           }
         },
         {
           name: 'ember-default',
           npm: {
-            devDependencies: {}
+            devDependencies: {},
+            depenencies: {}
           }
         }
       ]
