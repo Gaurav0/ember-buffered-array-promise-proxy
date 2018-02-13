@@ -1,7 +1,12 @@
 ember-buffered-array-promise-proxy
 ==============================================================================
 
-[Short description of the addon.]
+This addon combines the concepts of ember-data's PromiseProxyMixin and PromiseManyArray
+with the concepts of ember-buffered-array-proxy to create a promise version of a buffered
+array proxy. This is useful when you are dealing with a PromiseManyArray from an async
+hasMany relationship.
+
+This addon is currently a work in progress. Please help by contributing.
 
 Installation
 ------------------------------------------------------------------------------
@@ -10,11 +15,65 @@ Installation
 ember install ember-buffered-array-promise-proxy
 ```
 
-
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
+```sh
+ember install ember-buffered-array-proxy
+```
+
+```js
+import BufferedArrayPromiseProxy from 'ember-buffered-array-promise-proxy/proxy';
+
+const content = [ 'A' ];
+const promiseArray = BufferedArrayPromiseProxy.create({ content: RSVP.resolve(content) });
+
+promiseArray.then(buffer => {
+  buffer.get('firstObject'); // => 'A'
+  buffer.addObject('B');
+
+  buffer.objectAt(1); // => 'B'
+  buffer.toArray(); // => ['A', 'B']
+
+  buffer.get('hasChanges'); // => true
+  buffer.get('changes'); // => (get an object describing the changes) -- { added: ['B'], removed: [] }
+
+  buffer.applyBufferedChanges();
+
+  buffer.toArray(); // => ['A', 'B']
+  content.toArray(); // => ['A', 'B']
+  buffer.get('hasChanges'); // => false
+
+  buffer.removeObject('A');
+  buffer.get('changes'); // => { added: [], removed: ['A'] }
+  buffer.hasChanged(); // => true
+
+  buffer.discardBufferedChanges();
+
+  buffer.toArray(); // => ['A', 'B']
+  content.toArray(); // => ['A', 'B']
+  buffer.hasChanged(); // => false
+});
+```
+
+You can also use a few of these methods without using `then`:
+
+```js
+promiseArray.discardChanges();
+promiseArray.discardpromiseArrayedChanges();
+promiseArray.objectAt(1);
+promiseArray.toArray();
+```
+
+Or you can even use this awesome computed property macro:
+
+```js
+import { bufferedArrayPromise } from 'ember-buffered-array-promise-proxy/cp-macros';
+
+// ...
+
+bufferedPromisePosts: bufferedArrayPromise('posts')
+```
 
 
 Contributing

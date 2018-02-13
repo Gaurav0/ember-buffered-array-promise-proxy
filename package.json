@@ -1,17 +1,17 @@
 {
   "name": "ember-buffered-array-promise-proxy",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.0.1",
+  "description": "A promise proxy mixin using version of ember-buffered-array-proxy designed for use with ember-data hasMany array-like objects",
   "keywords": [
     "ember-addon"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "Gaurav Munjal & Vestorly",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "github:gaurav0/ember-buffered-array-promise-proxy",
   "scripts": {
     "build": "ember build",
     "lint:js": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
