@@ -10,23 +10,25 @@ import { promiseArray } from './utils/promises';
 
 let then = function(method) {
   return function() {
-    return this._promise.then(bufferedArray => {
-      return bufferedArray[method]();
+    let args = [...arguments];
+    return this.then(bufferedArray => {
+      return bufferedArray[method](...args);
     });
   };
 };
 
 let thenContent = function(method) {
   return function() {
-    return this._promise.then(bufferedArray => {
-      return get(bufferedArray, 'content')[method];
+    let args = [...arguments];
+    return this.then(bufferedArray => {
+      return bufferedArray[method](...args);
     });
   };
 };
 
 let promiseAlias = function(property) {
   return function() {
-    return this._promise[property];
+    return this._promise[property](...arguments);
   };
 };
 
@@ -64,7 +66,7 @@ export default Mixin.create(PromiseProxyMixin, {
       let bufferedArrayProxy = BufferedArrayProxy.create({ content });
 
       return bufferedArrayProxy;
-    })
+    });
     promise = promiseArray(promise);
 
     promise.discardChanges = promise.discardBufferedChanges = then('discardBufferedChanges').bind(promise);
