@@ -25,7 +25,7 @@ ember install ember-buffered-array-proxy
 ```js
 import BufferedArrayPromiseProxy from 'ember-buffered-array-promise-proxy/proxy';
 
-const content = [ 'A' ];
+const content = ['A'];
 const promiseArray = BufferedArrayPromiseProxy.create({ content: RSVP.resolve(content) });
 
 promiseArray.then(bufferedArray => {
@@ -54,6 +54,15 @@ promiseArray.then(bufferedArray => {
   bufferedArray.get('content').toArray(); // => ['A', 'B']
   bufferedArray.hasChanged(); // => false
 });
+```
+
+Or you can grab the mixin directly
+
+```js
+import BufferedArrayPromiseMixin from 'ember-buffered-array-promise-proxy/mixin';
+
+const content = ['A'];
+const promise = EmberObject.extend(BufferedArrayPromiseProxyMixin).create({ content: RSVP.resolve(content) });
 ```
 
 You can also use a few of these methods directly returning promises:

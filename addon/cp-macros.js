@@ -22,7 +22,7 @@ export function bufferedArray(property) {
   });
 }
 
-export function bufferedPromiseArray(property) {
+export function bufferedArrayPromise(property) {
   return computed(property, function() {
     let content = get(this, property);
     if (content) {
