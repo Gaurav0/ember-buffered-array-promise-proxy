@@ -22,7 +22,7 @@
     "ember-buffered-array-proxy": "^0.1.0",
     "ember-buffered-proxy": "^0.8.1",
     "ember-cli-babel": "^6.6.0",
-    "ember-data": "^3.0.1",
+    "ember-data": "^3.0.1 || >=2.8.0 <3.0.0",
     "ember-macro-helpers": "^0.17.0"
   },
   "devDependencies": {
